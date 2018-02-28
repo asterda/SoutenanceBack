@@ -9,24 +9,23 @@ import javax.persistence.Enumerated;
 @Embeddable
 public class MatierePK implements Serializable {
 
-	@Enumerated(EnumType.STRING)
-	private Technologie technologie;
+	private String technologie;
 	
 	@Enumerated(EnumType.STRING)
 	private Niveau niveau;
 
 	public MatierePK() { }
 
-	public MatierePK(Technologie technologie, Niveau niveau) {
+	public MatierePK(String technologie, Niveau niveau) {
 		this.technologie = technologie;
 		this.niveau = niveau;
 	}
 
-	public Technologie getTechnologie() {
+	public String getTechnologie() {
 		return technologie;
 	}
 
-	public void setTechnologie(Technologie technologie) {
+	public void setTechnologie(String technologie) {
 		this.technologie = technologie;
 	}
 

@@ -16,9 +16,9 @@ public abstract class RessourceHumaine {
 
 	@Id
 	@GeneratedValue(strategy=GenerationType.IDENTITY)
-	private Integer id; // Amélioration Vale : générer patron adapté sous classe : F_id pour Formateur,
-						// S_id pour stagiaire, etc. <- du coup, id == String
-	// cf. http://www.thejavageek.com/2014/01/14/automatic-id-creation-using-jpa-table-generator/
+	private Integer id; /* TODO Amélioration Vale : générer patron adapté sous classe : F_id pour Formateur,
+						S_id pour stagiaire, etc. <- du coup, id == String
+	/cf. http://www.thejavageek.com/2014/01/14/automatic-id-creation-using-jpa-table-generator/*/
 	
 	private String nom;
 	private String prenom;

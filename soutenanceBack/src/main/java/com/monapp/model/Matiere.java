@@ -22,6 +22,14 @@ public class Matiere {
 	public Matiere() {
 		super();
 	}
+	
+	public MatierePK getId() {
+		return id;
+	}
+
+	public void setId(MatierePK id) {
+		this.id = id;
+	}
 
 	public List<Module> getModules() {
 		return modules;
@@ -37,14 +45,6 @@ public class Matiere {
 
 	public void setFormateurs(List<Formateur> formateurs) {
 		this.formateurs = formateurs;
-	}
-
-	public MatierePK getId() {
-		return id;
-	}
-
-	public void setId(MatierePK id) {
-		this.id = id;
 	}
 
 }
