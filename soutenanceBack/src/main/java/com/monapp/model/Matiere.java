@@ -39,4 +39,12 @@ public class Matiere {
 		this.formateurs = formateurs;
 	}
 
+	public MatierePK getId() {
+		return id;
+	}
+
+	public void setId(MatierePK id) {
+		this.id = id;
+	}
+
 }
