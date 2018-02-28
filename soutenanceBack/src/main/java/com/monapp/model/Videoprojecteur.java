@@ -7,11 +7,14 @@ import javax.persistence.Entity;
 import javax.persistence.FetchType;
 import javax.persistence.OneToMany;
 
+import com.fasterxml.jackson.annotation.JsonView;
+
 @Entity
 @DiscriminatorValue("VP")
 public class Videoprojecteur extends RessourceMaterielle {
 	
 	@OneToMany(fetch=FetchType.LAZY, mappedBy="videoprojecteur")
+	@JsonView(Views.VideoprojecteurEtCursus.class)
 	private List<Cursus> cursus;
 
 	public Videoprojecteur() {

@@ -7,13 +7,18 @@ import javax.persistence.Id;
 import javax.persistence.Inheritance;
 import javax.persistence.InheritanceType;
 
+import com.fasterxml.jackson.annotation.JsonView;
+
 @Entity
 @Inheritance(strategy=InheritanceType.SINGLE_TABLE)
 @DiscriminatorColumn(name="RM_TYPE", discriminatorType=DiscriminatorType.STRING)
 public abstract class RessourceMaterielle {
 
 	@Id
+	@JsonView(Views.Common.class)
 	private String code;
+	
+	@JsonView(Views.Common.class)
 	private Float coutJour;
 
 	public RessourceMaterielle() {

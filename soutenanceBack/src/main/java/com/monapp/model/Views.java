@@ -49,4 +49,39 @@ public interface Views {
 	public interface StageEtCursus extends Stage { }
 	public interface StageGlobal extends StageEtCursus { }
 	
+	// Ordinateur
+	public interface Ordinateur extends Common { }
+	public interface OrdinateurEtCursus extends Ordinateur { }
+	public interface OrdinateurGlobal extends OrdinateurEtCursus { }
+	
+	// Salle
+	public interface Salle extends Common { }
+	public interface SalleEtCursus extends Salle { }
+	public interface SalleGlobal extends SalleEtCursus { }
+	
+	// Videoprojecteur
+	public interface Videoprojecteur extends Common { }
+	public interface VideoprojecteurEtCursus extends Videoprojecteur { }
+	public interface VideoprojecteurGlobal extends VideoprojecteurEtCursus { }
+	
+	// Cursus
+	public interface Cursus extends Common { }
+	public interface CursusEtGestionnaire extends Cursus { }
+	public interface CursusEtModules extends Cursus { }
+	public interface CursusEtTechnicien extends Cursus { }
+	public interface CursusEtSalle extends Cursus { }
+	public interface CursusEtVideoprojecteur extends Cursus { }
+	public interface CursusEtStages extends Cursus { }
+	public interface CursusEtStagiaires extends Cursus { }
+	public interface CursusEtOrdinateurs extends Cursus { }
+	public interface CursusGlobal extends
+		CursusEtGestionnaire,
+		CursusEtModules,
+		CursusEtTechnicien,
+		CursusEtSalle,
+		CursusEtVideoprojecteur,
+		CursusEtStages,
+		CursusEtStagiaires,
+		CursusEtOrdinateurs { }
+	
 }

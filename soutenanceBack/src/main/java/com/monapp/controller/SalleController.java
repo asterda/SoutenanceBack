@@ -14,8 +14,10 @@ import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RestController;
 
+import com.fasterxml.jackson.annotation.JsonView;
 import com.monapp.dao.SalleDao;
 import com.monapp.model.Salle;
+import com.monapp.model.Views;
 
 @RestController
 @CrossOrigin
@@ -25,6 +27,7 @@ public class SalleController {
 	SalleDao salleDao;
 	
 	@GetMapping("/salles/{code}")
+	@JsonView(Views.SalleGlobal.class)
 	public ResponseEntity<Salle> findOne(@PathVariable("code") String code){
 		Salle s = salleDao.findByPrimaryKey(code);
 		
@@ -36,6 +39,7 @@ public class SalleController {
 	}
 	
 	@GetMapping("/salles")
+	@JsonView(Views.SalleGlobal.class)
 	public ResponseEntity<List<Salle>> findAll() {
 		List<Salle> salles = salleDao.findAll();
 		return new ResponseEntity<List<Salle>>(salles, HttpStatus.OK);
@@ -57,6 +61,7 @@ public class SalleController {
 	}
 	
 	@PostMapping("/salles")
+	@JsonView(Views.SalleGlobal.class)
 	public ResponseEntity<Salle> create(@RequestBody Salle Salle) {
 		if (Salle.getCode() == null) {
 			return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
@@ -66,6 +71,7 @@ public class SalleController {
 	}
 	
 	@PutMapping("/salles")
+	@JsonView(Views.SalleGlobal.class)
 	public ResponseEntity<Salle> update(@RequestBody Salle Salle) {
 		if (Salle.getCode() == null) {
 			return create(Salle);

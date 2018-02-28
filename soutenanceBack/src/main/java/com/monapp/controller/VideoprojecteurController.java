@@ -14,8 +14,10 @@ import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RestController;
 
+import com.fasterxml.jackson.annotation.JsonView;
 import com.monapp.dao.VideoprojecteurDao;
 import com.monapp.model.Videoprojecteur;
+import com.monapp.model.Views;
 
 @RestController
 @CrossOrigin
@@ -25,6 +27,7 @@ public class VideoprojecteurController {
 	VideoprojecteurDao videoprojecteurDao;
 	
 	@GetMapping("/videoprojecteurs/{code}")
+	@JsonView(Views.VideoprojecteurGlobal.class)
 	public ResponseEntity<Videoprojecteur> findOne(@PathVariable("code") String code){
 		Videoprojecteur v = videoprojecteurDao.findByPrimaryKey(code);
 		
@@ -36,6 +39,7 @@ public class VideoprojecteurController {
 	}
 	
 	@GetMapping("/videoprojecteurs")
+	@JsonView(Views.VideoprojecteurGlobal.class)
 	public ResponseEntity<List<Videoprojecteur>> findAll() {
 		List<Videoprojecteur> videoprojecteurs = videoprojecteurDao.findAll();
 		return new ResponseEntity<List<Videoprojecteur>>(videoprojecteurs, HttpStatus.OK);
@@ -57,6 +61,7 @@ public class VideoprojecteurController {
 	}
 	
 	@PostMapping("/videoprojecteurs")
+	@JsonView(Views.VideoprojecteurGlobal.class)
 	public ResponseEntity<Videoprojecteur> create(@RequestBody Videoprojecteur Videoprojecteur) {
 		if (Videoprojecteur.getCode() == null) {
 			return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
@@ -66,6 +71,7 @@ public class VideoprojecteurController {
 	}
 	
 	@PutMapping("/videoprojecteurs")
+	@JsonView(Views.VideoprojecteurGlobal.class)
 	public ResponseEntity<Videoprojecteur> update(@RequestBody Videoprojecteur Videoprojecteur) {
 		if (Videoprojecteur.getCode() == null) {
 			return create(Videoprojecteur);

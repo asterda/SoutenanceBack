@@ -10,18 +10,27 @@ import javax.persistence.ManyToMany;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
 
+import com.fasterxml.jackson.annotation.JsonView;
+
 @Entity
 @DiscriminatorValue("ORDI")
 public class Ordinateur extends RessourceMaterielle {
 
+	@JsonView(Views.Common.class)
 	private String processeur;
+	
+	@JsonView(Views.Common.class)
 	private Integer ramGiga;
+	
+	@JsonView(Views.Common.class)
 	private Integer ddGiga;
 	
 	@Temporal(TemporalType.DATE) // :!\ yyyy-MM-dd : type postgresql
+	@JsonView(Views.Common.class)
 	private Date dateAchat; // dd/MM/yyyy
 	
 	@ManyToMany(fetch=FetchType.LAZY, mappedBy="ordinateurs")
+	@JsonView(Views.OrdinateurEtCursus.class)
 	private List<Cursus> cursus;
 
 	public Ordinateur() {

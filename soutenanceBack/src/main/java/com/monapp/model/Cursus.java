@@ -14,42 +14,57 @@ import javax.persistence.OneToMany;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
 
+import com.fasterxml.jackson.annotation.JsonView;
+
 @Entity
 public class Cursus {
 
 	@Id
 	@GeneratedValue(strategy=GenerationType.IDENTITY)
+	@JsonView(Views.Common.class)
 	private Integer id;
+	
+	@JsonView(Views.Common.class)
 	private String titre;
 	
 	@Temporal(TemporalType.DATE) // /!\ yyyy-MM-dd : type postgresql
+	@JsonView(Views.Common.class)
 	private Date dateDebut;		 // /!\ type Java
 	
 	@Temporal(TemporalType.DATE) // /!\ yyyy-MM-dd : type postgresql
+	@JsonView(Views.Common.class)
 	private Date dateFin;		 // /!\ type Java
 	
 	@ManyToOne(fetch=FetchType.LAZY)
+	@JsonView(Views.CursusEtGestionnaire.class)
 	private Gestionnaire gestionnaire;
 	
 	@OneToMany(fetch=FetchType.LAZY, mappedBy="cursus")
+	@JsonView(Views.CursusEtModules.class)
 	private List<Module> modules;
 	
 	@ManyToOne(fetch=FetchType.LAZY)
+	@JsonView(Views.CursusEtTechnicien.class)
 	private Technicien technicien;
 	
 	@ManyToOne(fetch=FetchType.LAZY)
+	@JsonView(Views.CursusEtSalle.class)
 	private Salle salle;
 	
 	@ManyToOne(fetch=FetchType.LAZY)
+	@JsonView(Views.CursusEtVideoprojecteur.class)
 	private Videoprojecteur videoprojecteur;
 	
 	@OneToMany(fetch=FetchType.LAZY, mappedBy="cursus")
+	@JsonView(Views.CursusEtStages.class)
 	private List<Stage> stages;
 	
 	@OneToMany(fetch=FetchType.LAZY, mappedBy="cursus")
+	@JsonView(Views.CursusEtStagiaires.class)
 	private List<Stagiaire> stagiaires;
 	
 	@ManyToMany(fetch=FetchType.LAZY)
+	@JsonView(Views.CursusEtOrdinateurs.class)
 	private List<Ordinateur> ordinateurs;
 
 	public Cursus() {

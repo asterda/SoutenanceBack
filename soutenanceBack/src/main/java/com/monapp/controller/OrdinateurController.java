@@ -14,8 +14,10 @@ import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RestController;
 
+import com.fasterxml.jackson.annotation.JsonView;
 import com.monapp.dao.OrdinateurDao;
 import com.monapp.model.Ordinateur;
+import com.monapp.model.Views;
 
 @RestController
 @CrossOrigin
@@ -25,6 +27,7 @@ public class OrdinateurController {
 	OrdinateurDao ordinateurDao;
 
 	@GetMapping("/ordinateurs/{code}")
+	@JsonView(Views.OrdinateurGlobal.class)
 	public ResponseEntity<Ordinateur> findOne(@PathVariable("code") String code) {
 		Ordinateur o = ordinateurDao.findByPrimaryKey(code);
 
@@ -36,6 +39,7 @@ public class OrdinateurController {
 	}
 
 	@GetMapping("/ordinateurs")
+	@JsonView(Views.OrdinateurGlobal.class)
 	public ResponseEntity<List<Ordinateur>> findAll() {
 		List<Ordinateur> salles = ordinateurDao.findAll();
 		return new ResponseEntity<List<Ordinateur>>(salles, HttpStatus.OK);
@@ -57,6 +61,7 @@ public class OrdinateurController {
 	}
 
 	@PostMapping("/ordinateurs")
+	@JsonView(Views.OrdinateurGlobal.class)
 	public ResponseEntity<Ordinateur> create(@RequestBody Ordinateur Ordinateur) {
 
 		if (Ordinateur.getCode() == null) {
@@ -67,6 +72,7 @@ public class OrdinateurController {
 	}
 
 	@PutMapping("/ordinateurs")
+	@JsonView(Views.OrdinateurGlobal.class)
 	public ResponseEntity<Ordinateur> update(@RequestBody Ordinateur Ordinateur) {
 		if (Ordinateur.getCode() == null) {
 			return create(Ordinateur);
