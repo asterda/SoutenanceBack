@@ -1,5 +1,6 @@
 package com.monapp.model;
 
+import java.util.Date;
 import java.util.List;
 
 import javax.persistence.Entity;
@@ -9,6 +10,8 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.ManyToMany;
 import javax.persistence.ManyToOne;
+import javax.persistence.Temporal;
+import javax.persistence.TemporalType;
 
 @Entity
 public class Module {
@@ -18,6 +21,12 @@ public class Module {
 	private Integer id;
 	private String nom;
 	private Integer duree;
+
+	@Temporal(TemporalType.DATE)
+	private Date dateDebut;
+
+	@Temporal(TemporalType.DATE)
+	private Date dateFin;
 
 	@ManyToMany(fetch = FetchType.LAZY)
 	private List<Matiere> matieres;
@@ -78,6 +87,22 @@ public class Module {
 
 	public void setFormateur(Formateur formateur) {
 		this.formateur = formateur;
+	}
+
+	public Date getDateDebut() {
+		return dateDebut;
+	}
+
+	public void setDateDebut(Date dateDebut) {
+		this.dateDebut = dateDebut;
+	}
+
+	public Date getDateFin() {
+		return dateFin;
+	}
+
+	public void setDateFin(Date dateFin) {
+		this.dateFin = dateFin;
 	}
 
 }

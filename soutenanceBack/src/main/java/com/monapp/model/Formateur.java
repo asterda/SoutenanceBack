@@ -12,11 +12,14 @@ import javax.persistence.OneToMany;
 @DiscriminatorValue("FORM")
 public class Formateur extends RessourceHumaine {
 
-	@ManyToMany(fetch=FetchType.LAZY)
+	@ManyToMany(fetch = FetchType.LAZY)
 	private List<Matiere> matieres; // Compétences du formateur == ce qu'il peut enseigner
-	
-	@OneToMany(fetch=FetchType.LAZY, mappedBy="formateur")
+
+	@OneToMany(fetch = FetchType.LAZY, mappedBy = "formateur")
 	private List<Module> modules; // Cours dispensés par le formateur == ce qu'il enseigne vraiment
+
+	@OneToMany(fetch = FetchType.LAZY, mappedBy = "formateur")
+	private List<Indisponibilite> indisponibilites;
 
 	public Formateur() {
 		super();
@@ -36,6 +39,14 @@ public class Formateur extends RessourceHumaine {
 
 	public void setModules(List<Module> modules) {
 		this.modules = modules;
+	}
+
+	public List<Indisponibilite> getIndisponibilites() {
+		return indisponibilites;
+	}
+
+	public void setIndisponibilites(List<Indisponibilite> indisponibilites) {
+		this.indisponibilites = indisponibilites;
 	}
 
 }
