@@ -12,8 +12,11 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RestController;
+
+import com.fasterxml.jackson.annotation.JsonView;
 import com.monapp.dao.StageDao;
 import com.monapp.model.Stage;
+import com.monapp.model.Views;
 
 @RestController
 @CrossOrigin
@@ -23,6 +26,7 @@ public class StageController {
 	StageDao stageDao;
 	
 	@GetMapping("/stages/{id}")
+	@JsonView(Views.StageGlobal.class)
 	public ResponseEntity<Stage> findOne(@PathVariable("id") Integer id){
 		Stage s = stageDao.findByPrimaryKey(id);
 		
@@ -34,6 +38,7 @@ public class StageController {
 	}
 	
 	@GetMapping("/stages")
+	@JsonView(Views.StageGlobal.class)
 	public ResponseEntity<List<Stage>> findAll() {
 		List<Stage> stages = stageDao.findAll();
 		return new ResponseEntity<List<Stage>>(stages, HttpStatus.OK);
@@ -55,6 +60,7 @@ public class StageController {
 	}
 	
 	@PostMapping("/stages")
+	@JsonView(Views.StageGlobal.class)
 	public ResponseEntity<Stage> create(@RequestBody Stage stage) {
 		if (stage.getId() != null) {
 			return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
@@ -64,6 +70,7 @@ public class StageController {
 	}
 	
 	@PutMapping("/stages")
+	@JsonView(Views.StageGlobal.class)
 	public ResponseEntity<Stage> update(@RequestBody Stage stage) {
 		if (stage.getId() == null) {
 			return create(stage);

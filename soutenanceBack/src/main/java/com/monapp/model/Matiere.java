@@ -7,16 +7,21 @@ import javax.persistence.Entity;
 import javax.persistence.FetchType;
 import javax.persistence.ManyToMany;
 
+import com.fasterxml.jackson.annotation.JsonView;
+
 @Entity
 public class Matiere {
 
 	@EmbeddedId
+	@JsonView(Views.Common.class)
 	private MatierePK id;
 
 	@ManyToMany(fetch = FetchType.LAZY, mappedBy = "matieres")
+	@JsonView(Views.MatiereEtModules.class)
 	private List<Module> modules;
 
 	@ManyToMany(fetch = FetchType.LAZY, mappedBy = "matieres")
+	@JsonView(Views.MatiereEtFormateurs.class)
 	private List<Formateur> formateurs;
 
 	public Matiere() {

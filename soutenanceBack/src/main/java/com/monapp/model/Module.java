@@ -13,28 +13,40 @@ import javax.persistence.ManyToOne;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
 
+import com.fasterxml.jackson.annotation.JsonView;
+
 @Entity
 public class Module {
 
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
+	@JsonView(Views.Common.class)
 	private Integer id;
+	
+	@JsonView(Views.Common.class)
 	private String nom;
+	
+	@JsonView(Views.Common.class)
 	private Integer duree;
 
 	@Temporal(TemporalType.DATE)
+	@JsonView(Views.Common.class)
 	private Date dateDebut;
 
 	@Temporal(TemporalType.DATE)
+	@JsonView(Views.Common.class)
 	private Date dateFin;
 
 	@ManyToMany(fetch = FetchType.LAZY)
+	@JsonView(Views.ModuleEtMatieres.class)
 	private List<Matiere> matieres;
 
 	@ManyToOne(fetch = FetchType.LAZY)
+	@JsonView(Views.ModuleEtCursus.class)
 	private Cursus cursus;
 
 	@ManyToOne(fetch = FetchType.LAZY)
+	@JsonView(Views.ModuleEtFormateur.class)
 	private Formateur formateur;
 
 	public Module() {

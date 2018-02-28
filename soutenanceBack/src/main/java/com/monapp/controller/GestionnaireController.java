@@ -14,8 +14,10 @@ import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RestController;
 
+import com.fasterxml.jackson.annotation.JsonView;
 import com.monapp.dao.GestionnaireDao;
 import com.monapp.model.Gestionnaire;
+import com.monapp.model.Views;
 
 @RestController
 @CrossOrigin
@@ -25,6 +27,7 @@ public class GestionnaireController {
 	GestionnaireDao gestionnaireDao;
 	
 	@GetMapping("/gestionnaires/{id}")
+	@JsonView(Views.GestionnaireGlobal.class)
 	public ResponseEntity<Gestionnaire> findOne(@PathVariable("id") Integer id){
 		Gestionnaire g = gestionnaireDao.findByPrimaryKey(id);
 		
@@ -36,6 +39,7 @@ public class GestionnaireController {
 	}
 	
 	@GetMapping("/gestionnaires")
+	@JsonView(Views.GestionnaireGlobal.class)
 	public ResponseEntity<List<Gestionnaire>> findAll() {
 		List<Gestionnaire> formateurs = gestionnaireDao.findAll();
 		return new ResponseEntity<List<Gestionnaire>>(formateurs, HttpStatus.OK);
@@ -57,6 +61,7 @@ public class GestionnaireController {
 	}
 	
 	@PostMapping("/gestionnaires")
+	@JsonView(Views.GestionnaireGlobal.class)
 	public ResponseEntity<Gestionnaire> create(@RequestBody Gestionnaire Gestionnaire) {
 		if (Gestionnaire.getId() != null) {
 			return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
@@ -66,6 +71,7 @@ public class GestionnaireController {
 	}
 	
 	@PutMapping("/gestionnaires")
+	@JsonView(Views.GestionnaireGlobal.class)
 	public ResponseEntity<Gestionnaire> update(@RequestBody Gestionnaire Gestionnaire) {
 		if (Gestionnaire.getId() == null) {
 			return create(Gestionnaire);

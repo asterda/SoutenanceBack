@@ -13,8 +13,11 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RestController;
+
+import com.fasterxml.jackson.annotation.JsonView;
 import com.monapp.dao.TechnicienDao;
 import com.monapp.model.Technicien;
+import com.monapp.model.Views;
 
 @RestController
 @CrossOrigin
@@ -24,6 +27,7 @@ public class TechnicienController {
 	TechnicienDao technicienDao;
 	
 	@GetMapping("/techniciens/{id}")
+	@JsonView(Views.TechnicienGlobal.class)
 	public ResponseEntity<Technicien> findOne(@PathVariable("id") Integer id){
 		Technicien t = technicienDao.findByPrimaryKey(id);
 		
@@ -35,6 +39,7 @@ public class TechnicienController {
 	}
 	
 	@GetMapping("/techniciens")
+	@JsonView(Views.TechnicienGlobal.class)
 	public ResponseEntity<List<Technicien>> findAll() {
 		List<Technicien> techniciens = technicienDao.findAll();
 		return new ResponseEntity<List<Technicien>>(techniciens, HttpStatus.OK);
@@ -56,6 +61,7 @@ public class TechnicienController {
 	}
 	
 	@PostMapping("/techniciens")
+	@JsonView(Views.TechnicienGlobal.class)
 	public ResponseEntity<Technicien> create(@RequestBody Technicien technicien) {
 		if (technicien.getId() != null) {
 			return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
@@ -65,6 +71,7 @@ public class TechnicienController {
 	}
 	
 	@PutMapping("/techniciens")
+	@JsonView(Views.TechnicienGlobal.class)
 	public ResponseEntity<Technicien> update(@RequestBody Technicien technicien) {
 		if (technicien.getId() == null) {
 			return create(technicien);

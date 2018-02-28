@@ -10,21 +10,27 @@ import javax.persistence.Id;
 import javax.persistence.ManyToOne;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
+
+import com.fasterxml.jackson.annotation.JsonView;
 //commentaire
 @Entity
 public class Indisponibilite {
 
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
+	@JsonView(Views.Common.class)
 	private Integer id;
 
 	@Temporal(TemporalType.DATE)
+	@JsonView(Views.Common.class)
 	private Date dateDebut;
 
 	@Temporal(TemporalType.DATE)
+	@JsonView(Views.Common.class)
 	private Date dateFin;
 
 	@ManyToOne(fetch = FetchType.LAZY)
+	@JsonView(Views.IndisponibiliteEtFormateur.class)
 	private Formateur formateur;
 
 	public Indisponibilite() {

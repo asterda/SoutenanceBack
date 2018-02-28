@@ -14,8 +14,10 @@ import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RestController;
 
+import com.fasterxml.jackson.annotation.JsonView;
 import com.monapp.dao.FormateurDao;
 import com.monapp.model.Formateur;
+import com.monapp.model.Views;
 
 @RestController
 @CrossOrigin
@@ -25,6 +27,7 @@ public class FormateurController {
 	FormateurDao formateurDao;
 	
 	@GetMapping("/formateurs/{id}")
+	@JsonView(Views.FormateurGlobal.class)
 	public ResponseEntity<Formateur> findOne(@PathVariable("id") Integer id){
 		Formateur s = formateurDao.findByPrimaryKey(id);
 		
@@ -36,6 +39,7 @@ public class FormateurController {
 	}
 	
 	@GetMapping("/formateurs")
+	@JsonView(Views.FormateurGlobal.class)
 	public ResponseEntity<List<Formateur>> findAll() {
 		List<Formateur> formateurs = formateurDao.findAll();
 		return new ResponseEntity<List<Formateur>>(formateurs, HttpStatus.OK);
@@ -57,6 +61,7 @@ public class FormateurController {
 	}
 	
 	@PostMapping("/formateurs")
+	@JsonView(Views.FormateurGlobal.class)
 	public ResponseEntity<Formateur> create(@RequestBody Formateur Formateur) {
 		if (Formateur.getId() != null) {
 			return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
@@ -66,6 +71,7 @@ public class FormateurController {
 	}
 	
 	@PutMapping("/formateurs")
+	@JsonView(Views.FormateurGlobal.class)
 	public ResponseEntity<Formateur> update(@RequestBody Formateur Formateur) {
 		if (Formateur.getId() == null) {
 			return create(Formateur);
