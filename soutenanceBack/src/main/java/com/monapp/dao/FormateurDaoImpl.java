@@ -1,49 +1,47 @@
 package com.monapp.dao;
 
 import java.util.List;
-
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
 import javax.persistence.Query;
 import org.springframework.stereotype.Repository;
 import org.springframework.transaction.annotation.Transactional;
-import com.monapp.model.Technicien;
+import com.monapp.model.Formateur;
 
 @Transactional
 @Repository
-public class TechnicienDaoImpl implements TechnicienDao {
+public class FormateurDaoImpl implements FormateurDao {
 
 	@PersistenceContext
 	EntityManager em;
 
 	@Override
-	public Technicien findByPrimaryKey(Integer id) {
-		return em.find(Technicien.class, id);
+	public Formateur findByPrimaryKey(Integer id) {
+		return em.find(Formateur.class, id);
 	}
 
 	@Override
-	public List<Technicien> findAll() {
-		String querystring = "SELECT t FROM Technicien t ORDER BY id" ;
+	public List<Formateur> findAll() {
+		String querystring = "SELECT f FROM Formateur f ORDER BY id";
 		Query query = em.createQuery(querystring);
-		List<Technicien> list = query.getResultList();
+		List<Formateur> list = query.getResultList();
 		return list;
 	}
 
 	@Override
-	public Technicien save(Technicien entity) {
+	public Formateur save(Formateur entity) {
 		em.persist(entity);
 		return entity;
 	}
 
 	@Override
-	public void delete(Technicien entity) {
+	public void delete(Formateur entity) {
 		entity = em.merge(entity);
 		em.remove(entity);
 	}
 
 	@Override
-	public Technicien update(Technicien entity) {
+	public Formateur update(Formateur entity) {
 		return em.merge(entity);
 	}
-
 }

@@ -1,49 +1,48 @@
 package com.monapp.dao;
 
 import java.util.List;
-
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
 import javax.persistence.Query;
 import org.springframework.stereotype.Repository;
 import org.springframework.transaction.annotation.Transactional;
-import com.monapp.model.Technicien;
+import com.monapp.model.Stagiaire;
 
 @Transactional
 @Repository
-public class TechnicienDaoImpl implements TechnicienDao {
+public class StagiaireDaoImpl implements StagiaireDao {
 
 	@PersistenceContext
 	EntityManager em;
 
 	@Override
-	public Technicien findByPrimaryKey(Integer id) {
-		return em.find(Technicien.class, id);
+	public Stagiaire findByPrimaryKey(Integer id) {
+		return em.find(Stagiaire.class, id);
 	}
 
 	@Override
-	public List<Technicien> findAll() {
-		String querystring = "SELECT t FROM Technicien t ORDER BY id" ;
+	public List<Stagiaire> findAll() {
+		String querystring = "SELECT s FROM Stagiaire s ORDER BY id" ;
 		Query query = em.createQuery(querystring);
-		List<Technicien> list = query.getResultList();
+		List<Stagiaire> list = query.getResultList();
 		return list;
 	}
 
 	@Override
-	public Technicien save(Technicien entity) {
+	public Stagiaire save(Stagiaire entity) {
 		em.persist(entity);
 		return entity;
 	}
 
 	@Override
-	public void delete(Technicien entity) {
+	public void delete(Stagiaire entity) {
 		entity = em.merge(entity);
 		em.remove(entity);
 	}
 
 	@Override
-	public Technicien update(Technicien entity) {
+	public Stagiaire update(Stagiaire entity) {
 		return em.merge(entity);
 	}
-
+	
 }
