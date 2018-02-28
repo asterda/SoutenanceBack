@@ -17,7 +17,6 @@ import com.monapp.dao.MatiereDao;
 import com.monapp.model.Matiere;
 import com.monapp.model.MatierePK;
 import com.monapp.model.Niveau;
-import com.monapp.model.Stage;
 import com.monapp.model.Technologie;
 
 @RestController
