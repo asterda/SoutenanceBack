@@ -7,18 +7,22 @@ import javax.persistence.Entity;
 import javax.persistence.FetchType;
 import javax.persistence.ManyToMany;
 import javax.persistence.OneToMany;
+import com.fasterxml.jackson.annotation.JsonView;
 
 @Entity
 @DiscriminatorValue("FORM")
 public class Formateur extends RessourceHumaine {
 
 	@ManyToMany(fetch = FetchType.LAZY)
+	@JsonView(Views.FormateurEtMatieres.class)
 	private List<Matiere> matieres; // Compétences du formateur == ce qu'il peut enseigner
 
 	@OneToMany(fetch = FetchType.LAZY, mappedBy = "formateur")
+	@JsonView(Views.FormateurEtModules.class)
 	private List<Module> modules; // Cours dispensés par le formateur == ce qu'il enseigne vraiment
 
 	@OneToMany(fetch = FetchType.LAZY, mappedBy = "formateur")
+	@JsonView(Views.FormateurEtIndisponibilites.class)
 	private List<Indisponibilite> indisponibilites;
 
 	public Formateur() {

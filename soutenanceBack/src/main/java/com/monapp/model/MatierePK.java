@@ -6,12 +6,16 @@ import javax.persistence.Embeddable;
 import javax.persistence.EnumType;
 import javax.persistence.Enumerated;
 
+import com.fasterxml.jackson.annotation.JsonView;
+
 @Embeddable
 public class MatierePK implements Serializable {
 
+	@JsonView(Views.Common.class)
 	private String technologie;
 	
 	@Enumerated(EnumType.STRING)
+	@JsonView(Views.Common.class)
 	private Niveau niveau;
 
 	public MatierePK() { }

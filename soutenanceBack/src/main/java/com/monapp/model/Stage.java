@@ -6,18 +6,25 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.ManyToOne;
-import javax.persistence.OneToMany;
+
+import com.fasterxml.jackson.annotation.JsonView;
 
 @Entity
 public class Stage {
 
 	@Id
 	@GeneratedValue(strategy=GenerationType.IDENTITY)
+	@JsonView(Views.Common.class)
 	private Integer id;
+	
+	@JsonView(Views.Common.class)
 	private String titre;
+	
+	@JsonView(Views.Common.class)
 	private Integer duree; // en jours
 	
 	@ManyToOne(fetch=FetchType.LAZY)
+	@JsonView(Views.StageEtCursus.class)
 	private Cursus cursus;
 
 	public Stage() {
