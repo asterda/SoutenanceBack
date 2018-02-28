@@ -25,9 +25,6 @@ public class Module {
 	
 	@JsonView(Views.Common.class)
 	private String nom;
-	
-	@JsonView(Views.Common.class)
-	private Integer duree;
 
 	@Temporal(TemporalType.DATE)
 	@JsonView(Views.Common.class)
@@ -67,14 +64,6 @@ public class Module {
 
 	public void setNom(String nom) {
 		this.nom = nom;
-	}
-
-	public Integer getDuree() {
-		return duree;
-	}
-
-	public void setDuree(Integer duree) {
-		this.duree = duree;
 	}
 
 	public List<Matiere> getMatieres() {
