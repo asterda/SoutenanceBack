@@ -94,7 +94,8 @@ public interface Views {
 		CursusEtStages,
 		CursusEtStagiaires,
 		CursusEtOrdinateurs,
-		ModuleEtMatieres // Pour avoir les matières avec les modules (à voir si garder/enlever)
+		ModuleEtMatieres,  // Pour avoir les matières avec les modules (à voir si garder/enlever)
+		ModuleEtEvaluation // Pour avoir les évaluations avec les modules (à voir si garder/enlever)
 		{ } 
 	
 }
