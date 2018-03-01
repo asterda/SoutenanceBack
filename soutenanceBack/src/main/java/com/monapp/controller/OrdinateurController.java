@@ -62,24 +62,24 @@ public class OrdinateurController {
 
 	@PostMapping("/ordinateurs")
 	@JsonView(Views.OrdinateurGlobal.class)
-	public ResponseEntity<Ordinateur> create(@RequestBody Ordinateur Ordinateur) {
+	public ResponseEntity<Ordinateur> create(@RequestBody Ordinateur ordinateur) {
 
-		if (Ordinateur.getCode() == null) {
+		if (ordinateur.getCode() == null) {
 			return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
 		}
-		ordinateurDao.save(Ordinateur);
-		return new ResponseEntity<Ordinateur>(Ordinateur, HttpStatus.CREATED);
+		ordinateurDao.save(ordinateur);
+		return new ResponseEntity<Ordinateur>(ordinateur, HttpStatus.CREATED);
 	}
 
 	@PutMapping("/ordinateurs")
 	@JsonView(Views.OrdinateurGlobal.class)
-	public ResponseEntity<Ordinateur> update(@RequestBody Ordinateur Ordinateur) {
-		if (Ordinateur.getCode() == null) {
-			return create(Ordinateur);
+	public ResponseEntity<Ordinateur> update(@RequestBody Ordinateur ordinateur) {
+		if (ordinateur.getCode() == null) {
+			return create(ordinateur);
 		}
-		Ordinateur = ordinateurDao.update(Ordinateur);
+		ordinateur = ordinateurDao.update(ordinateur);
 
-		return new ResponseEntity<Ordinateur>(Ordinateur, HttpStatus.OK);
+		return new ResponseEntity<Ordinateur>(ordinateur, HttpStatus.OK);
 	}
 
 }

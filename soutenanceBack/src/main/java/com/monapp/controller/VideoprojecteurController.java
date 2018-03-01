@@ -62,23 +62,23 @@ public class VideoprojecteurController {
 	
 	@PostMapping("/videoprojecteurs")
 	@JsonView(Views.VideoprojecteurGlobal.class)
-	public ResponseEntity<Videoprojecteur> create(@RequestBody Videoprojecteur Videoprojecteur) {
-		if (Videoprojecteur.getCode() == null) {
+	public ResponseEntity<Videoprojecteur> create(@RequestBody Videoprojecteur videoprojecteur) {
+		if (videoprojecteur.getCode() == null) {
 			return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
 		}
-		videoprojecteurDao.save(Videoprojecteur);
-		return new ResponseEntity<Videoprojecteur>(Videoprojecteur, HttpStatus.CREATED);
+		videoprojecteurDao.save(videoprojecteur);
+		return new ResponseEntity<Videoprojecteur>(videoprojecteur, HttpStatus.CREATED);
 	}
 	
 	@PutMapping("/videoprojecteurs")
 	@JsonView(Views.VideoprojecteurGlobal.class)
-	public ResponseEntity<Videoprojecteur> update(@RequestBody Videoprojecteur Videoprojecteur) {
-		if (Videoprojecteur.getCode() == null) {
-			return create(Videoprojecteur);
+	public ResponseEntity<Videoprojecteur> update(@RequestBody Videoprojecteur videoprojecteur) {
+		if (videoprojecteur.getCode() == null) {
+			return create(videoprojecteur);
 		}
-		Videoprojecteur = videoprojecteurDao.update(Videoprojecteur);
+		videoprojecteur = videoprojecteurDao.update(videoprojecteur);
 
-		return new ResponseEntity<Videoprojecteur>(Videoprojecteur, HttpStatus.OK);
+		return new ResponseEntity<Videoprojecteur>(videoprojecteur, HttpStatus.OK);
 	}
 
 }

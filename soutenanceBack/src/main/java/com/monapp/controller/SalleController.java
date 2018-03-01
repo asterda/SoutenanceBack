@@ -62,23 +62,23 @@ public class SalleController {
 	
 	@PostMapping("/salles")
 	@JsonView(Views.SalleGlobal.class)
-	public ResponseEntity<Salle> create(@RequestBody Salle Salle) {
-		if (Salle.getCode() == null) {
+	public ResponseEntity<Salle> create(@RequestBody Salle salle) {
+		if (salle.getCode() == null) {
 			return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
 		}
-		salleDao.save(Salle);
-		return new ResponseEntity<Salle>(Salle, HttpStatus.CREATED);
+		salleDao.save(salle);
+		return new ResponseEntity<Salle>(salle, HttpStatus.CREATED);
 	}
 	
 	@PutMapping("/salles")
 	@JsonView(Views.SalleGlobal.class)
-	public ResponseEntity<Salle> update(@RequestBody Salle Salle) {
-		if (Salle.getCode() == null) {
-			return create(Salle);
+	public ResponseEntity<Salle> update(@RequestBody Salle salle) {
+		if (salle.getCode() == null) {
+			return create(salle);
 		}
-		Salle = salleDao.update(Salle);
+		salle = salleDao.update(salle);
 
-		return new ResponseEntity<Salle>(Salle, HttpStatus.OK);
+		return new ResponseEntity<Salle>(salle, HttpStatus.OK);
 	}
 
 }
