@@ -67,7 +67,11 @@ public class EvaluationController {
 		if (evaluation.getId() != null) {
 			return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
 		}
-		evaluationDao.save(evaluation);
+		try {
+			evaluationDao.save(evaluation);
+		} catch(Exception e) {
+			return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
+		}
 		return new ResponseEntity<Evaluation>(evaluation, HttpStatus.CREATED);
 	}
 	
@@ -77,8 +81,11 @@ public class EvaluationController {
 		if (evaluation.getId() == null) {
 			return create(evaluation);
 		}
-		evaluation = evaluationDao.update(evaluation);
-
+		try {
+			evaluation = evaluationDao.update(evaluation);
+		} catch(Exception e) {
+			return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
+		}
 		return new ResponseEntity<Evaluation>(evaluation, HttpStatus.OK);
 	}
 

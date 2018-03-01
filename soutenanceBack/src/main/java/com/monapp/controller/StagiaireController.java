@@ -66,7 +66,11 @@ public class StagiaireController {
 		if (stagiaire.getId() != null) {
 			return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
 		}
-		stagiaireDao.save(stagiaire);
+		try {
+			stagiaireDao.save(stagiaire);
+		} catch(Exception e) {
+			return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
+		}
 		return new ResponseEntity<Stagiaire>(stagiaire, HttpStatus.CREATED);
 	}
 	
@@ -76,8 +80,11 @@ public class StagiaireController {
 		if (stagiaire.getId() == null) {
 			return create(stagiaire);
 		}
-		stagiaire = stagiaireDao.update(stagiaire);
-
+		try {
+			stagiaire = stagiaireDao.update(stagiaire);
+		} catch(Exception e) {
+			return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
+		}
 		return new ResponseEntity<Stagiaire>(stagiaire, HttpStatus.OK);
 	}
 

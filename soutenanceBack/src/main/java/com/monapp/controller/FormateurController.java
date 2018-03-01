@@ -67,7 +67,11 @@ public class FormateurController {
 		if (formateur.getId() != null) {
 			return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
 		}
-		formateurDao.save(formateur);
+		try {
+			formateurDao.save(formateur);
+		} catch(Exception e) {
+			return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
+		}
 		return new ResponseEntity<Formateur>(formateur, HttpStatus.CREATED);
 	}
 	
@@ -77,8 +81,11 @@ public class FormateurController {
 		if (formateur.getId() == null) {
 			return create(formateur);
 		}
-		formateur = formateurDao.update(formateur);
-
+		try {
+			formateur = formateurDao.update(formateur);
+		} catch(Exception e) {
+			return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
+		}
 		return new ResponseEntity<Formateur>(formateur, HttpStatus.OK);
 	}
 

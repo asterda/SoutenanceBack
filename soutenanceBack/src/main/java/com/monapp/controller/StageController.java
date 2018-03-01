@@ -65,7 +65,11 @@ public class StageController {
 		if (stage.getId() != null) {
 			return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
 		}
-		stageDao.save(stage);
+		try {
+			stageDao.save(stage);
+		} catch(Exception e) {
+			return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
+		}
 		return new ResponseEntity<Stage>(stage, HttpStatus.CREATED);
 	}
 	
@@ -75,8 +79,11 @@ public class StageController {
 		if (stage.getId() == null) {
 			return create(stage);
 		}
-		stage = stageDao.update(stage);
-
+		try {
+			stage = stageDao.update(stage);
+		} catch(Exception e) {
+			return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
+		}
 		return new ResponseEntity<Stage>(stage, HttpStatus.OK);
 	}
 	

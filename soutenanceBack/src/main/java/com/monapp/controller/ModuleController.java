@@ -66,7 +66,11 @@ public class ModuleController {
 		if (module.getId() != null) {
 			return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
 		}
-		moduleDao.save(module);
+		try {
+			moduleDao.save(module);
+		} catch(Exception e) {
+			return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
+		}
 		return new ResponseEntity<Module>(module, HttpStatus.CREATED);
 	}
 	
@@ -76,7 +80,11 @@ public class ModuleController {
 		if (module.getId() == null) {
 			return create(module);
 		}
-		module = moduleDao.update(module);
+		try {
+			module = moduleDao.update(module);
+		} catch(Exception e) {
+			return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
+		}
 		return new ResponseEntity<Module>(module, HttpStatus.OK);
 	}
 	

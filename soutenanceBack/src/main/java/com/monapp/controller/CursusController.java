@@ -66,7 +66,11 @@ public class CursusController {
 		if (cursus.getId() != null) {
 			return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
 		}
-		cursusDao.save(cursus);
+		try {
+			cursusDao.save(cursus);
+		} catch(Exception e) {
+			return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
+		}
 		return new ResponseEntity<Cursus>(cursus, HttpStatus.CREATED);
 	}
 	
@@ -76,8 +80,11 @@ public class CursusController {
 		if (cursus.getId() == null) {
 			return create(cursus);
 		}
-		cursus = cursusDao.update(cursus);
-
+		try {
+			cursus = cursusDao.update(cursus);
+		} catch(Exception e) {
+			return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
+		}
 		return new ResponseEntity<Cursus>(cursus, HttpStatus.OK);
 	}
 

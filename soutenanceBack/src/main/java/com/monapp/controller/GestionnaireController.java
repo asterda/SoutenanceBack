@@ -67,7 +67,11 @@ public class GestionnaireController {
 		if (gestionnaire.getId() != null) {
 			return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
 		}
-		gestionnaireDao.save(gestionnaire);
+		try {
+			gestionnaireDao.save(gestionnaire);
+		} catch(Exception e) {
+			return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
+		}
 		return new ResponseEntity<Gestionnaire>(gestionnaire, HttpStatus.CREATED);
 	}
 	
@@ -77,8 +81,11 @@ public class GestionnaireController {
 		if (gestionnaire.getId() == null) {
 			return create(gestionnaire);
 		}
-		gestionnaire = gestionnaireDao.update(gestionnaire);
-
+		try {
+			gestionnaire = gestionnaireDao.update(gestionnaire);
+		} catch(Exception e) {
+			return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
+		}
 		return new ResponseEntity<Gestionnaire>(gestionnaire, HttpStatus.OK);
 	}
 }

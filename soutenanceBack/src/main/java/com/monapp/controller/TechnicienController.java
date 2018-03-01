@@ -67,7 +67,11 @@ public class TechnicienController {
 		if (technicien.getId() != null) {
 			return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
 		}
-		technicienDao.save(technicien);
+		try {
+			technicienDao.save(technicien);
+		} catch(Exception e) {
+			return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
+		}
 		return new ResponseEntity<Technicien>(technicien, HttpStatus.CREATED);
 	}
 	
@@ -77,8 +81,11 @@ public class TechnicienController {
 		if (technicien.getId() == null) {
 			return create(technicien);
 		}
-		technicien = technicienDao.update(technicien);
-
+		try {
+			technicien = technicienDao.update(technicien);
+		} catch(Exception e) {
+			return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
+		}
 		return new ResponseEntity<Technicien>(technicien, HttpStatus.OK);
 	}
 	
