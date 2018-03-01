@@ -25,7 +25,8 @@ public interface Views {
 	// Stagiaire
 	public interface Stagiaire extends Common { }
 	public interface StagiaireEtCursus extends Stagiaire { }
-	public interface StagiaireGlobal extends StagiaireEtCursus { }
+	public interface StagiaireEtEvaluation extends Stagiaire { }
+	public interface StagiaireGlobal extends StagiaireEtCursus, StagiaireEtEvaluation { }
 	
 	// Matiere
 	public interface Matiere extends Common { }
@@ -42,7 +43,11 @@ public interface Views {
 	public interface ModuleEtMatieres extends Module { }
 	public interface ModuleEtCursus extends Module { }
 	public interface ModuleEtFormateur extends Module { }
-	public interface ModuleGlobal extends ModuleEtMatieres, ModuleEtCursus, ModuleEtFormateur { }
+	public interface ModuleEtEvaluation extends Module { }
+	public interface ModuleGlobal extends ModuleEtMatieres,
+		ModuleEtCursus,
+		ModuleEtFormateur,
+		ModuleEtEvaluation { }
 	
 	// Stage
 	public interface Stage extends Common { }
@@ -63,6 +68,12 @@ public interface Views {
 	public interface Videoprojecteur extends Common { }
 	public interface VideoprojecteurEtCursus extends Videoprojecteur { }
 	public interface VideoprojecteurGlobal extends VideoprojecteurEtCursus { }
+	
+	// Evaluation
+	public interface Evaluation extends Common { }
+	public interface EvaluationEtModule extends Evaluation { }
+	public interface EvaluationEtStagiaire extends Evaluation { }
+	public interface EvaluationGlobal extends EvaluationEtModule, EvaluationEtStagiaire { }
 	
 	// Cursus
 	public interface Cursus extends Common { }

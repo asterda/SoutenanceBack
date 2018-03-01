@@ -62,23 +62,23 @@ public class StagiaireController {
 	
 	@PostMapping("/stagiaires")
 	@JsonView(Views.StagiaireGlobal.class)
-	public ResponseEntity<Stagiaire> create(@RequestBody Stagiaire Stagiaire) {
-		if (Stagiaire.getId() != null) {
+	public ResponseEntity<Stagiaire> create(@RequestBody Stagiaire stagiaire) {
+		if (stagiaire.getId() != null) {
 			return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
 		}
-		stagiaireDao.save(Stagiaire);
-		return new ResponseEntity<Stagiaire>(Stagiaire, HttpStatus.CREATED);
+		stagiaireDao.save(stagiaire);
+		return new ResponseEntity<Stagiaire>(stagiaire, HttpStatus.CREATED);
 	}
 	
 	@PutMapping("/stagiaires")
 	@JsonView(Views.StagiaireGlobal.class)
-	public ResponseEntity<Stagiaire> update(@RequestBody Stagiaire Stagiaire) {
-		if (Stagiaire.getId() == null) {
-			return create(Stagiaire);
+	public ResponseEntity<Stagiaire> update(@RequestBody Stagiaire stagiaire) {
+		if (stagiaire.getId() == null) {
+			return create(stagiaire);
 		}
-		Stagiaire = stagiaireDao.update(Stagiaire);
+		stagiaire = stagiaireDao.update(stagiaire);
 
-		return new ResponseEntity<Stagiaire>(Stagiaire, HttpStatus.OK);
+		return new ResponseEntity<Stagiaire>(stagiaire, HttpStatus.OK);
 	}
 
 }

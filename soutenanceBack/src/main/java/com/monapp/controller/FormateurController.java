@@ -63,23 +63,23 @@ public class FormateurController {
 	
 	@PostMapping("/formateurs")
 	@JsonView(Views.FormateurGlobal.class)
-	public ResponseEntity<Formateur> create(@RequestBody Formateur Formateur) {
-		if (Formateur.getId() != null) {
+	public ResponseEntity<Formateur> create(@RequestBody Formateur formateur) {
+		if (formateur.getId() != null) {
 			return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
 		}
-		formateurDao.save(Formateur);
-		return new ResponseEntity<Formateur>(Formateur, HttpStatus.CREATED);
+		formateurDao.save(formateur);
+		return new ResponseEntity<Formateur>(formateur, HttpStatus.CREATED);
 	}
 	
 	@PutMapping("/formateurs")
 	@JsonView(Views.FormateurGlobal.class)
-	public ResponseEntity<Formateur> update(@RequestBody Formateur Formateur) {
-		if (Formateur.getId() == null) {
-			return create(Formateur);
+	public ResponseEntity<Formateur> update(@RequestBody Formateur formateur) {
+		if (formateur.getId() == null) {
+			return create(formateur);
 		}
-		Formateur = formateurDao.update(Formateur);
+		formateur = formateurDao.update(formateur);
 
-		return new ResponseEntity<Formateur>(Formateur, HttpStatus.OK);
+		return new ResponseEntity<Formateur>(formateur, HttpStatus.OK);
 	}
 
 }

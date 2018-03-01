@@ -10,6 +10,7 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.ManyToMany;
 import javax.persistence.ManyToOne;
+import javax.persistence.OneToMany;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
 
@@ -22,7 +23,7 @@ public class Module {
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	@JsonView(Views.Common.class)
 	private Integer id;
-	
+
 	@JsonView(Views.Common.class)
 	private String nom;
 
@@ -45,6 +46,10 @@ public class Module {
 	@ManyToOne(fetch = FetchType.LAZY)
 	@JsonView(Views.ModuleEtFormateur.class)
 	private Formateur formateur;
+
+	@OneToMany(fetch = FetchType.LAZY, mappedBy = "module")
+	@JsonView(Views.ModuleEtEvaluation.class)
+	private List<Evaluation> evaluations;
 
 	public Module() {
 		super();
@@ -104,6 +109,14 @@ public class Module {
 
 	public void setDateFin(Date dateFin) {
 		this.dateFin = dateFin;
+	}
+
+	public List<Evaluation> getEvaluations() {
+		return evaluations;
+	}
+
+	public void setEvaluations(List<Evaluation> evaluations) {
+		this.evaluations = evaluations;
 	}
 
 }

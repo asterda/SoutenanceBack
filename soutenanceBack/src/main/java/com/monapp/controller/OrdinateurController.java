@@ -61,17 +61,18 @@ public class OrdinateurController {
 
 	@PostMapping("/ordinateurs")
 	@JsonView(Views.OrdinateurGlobal.class)
-	public ResponseEntity<Ordinateur> create(@RequestBody Ordinateur Ordinateur) {
+	public ResponseEntity<Ordinateur> create(@RequestBody Ordinateur ordinateur) {
 
-		if (Ordinateur.getCode() == null) {
+		if (ordinateur.getCode() == null) {
 			return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
 		}
 		try {
-			ordinateurDao.save(Ordinateur);
+			ordinateurDao.save(ordinateur);
 		} catch(Exception e) {
 			return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
 		}
-		return new ResponseEntity<Ordinateur>(Ordinateur, HttpStatus.CREATED);
+		return new ResponseEntity<Ordinateur>(ordinateur, HttpStatus.CREATED);
+
 	}
 
 	@PutMapping("/ordinateurs")

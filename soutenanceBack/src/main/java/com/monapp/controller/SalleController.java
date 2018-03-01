@@ -77,7 +77,7 @@ public class SalleController {
 	@JsonView(Views.SalleGlobal.class)
 	public ResponseEntity<Salle> update(@RequestBody Salle salle) {
 		if (salle.getCode() == null) {
-			return create(salle); // On ne peut pas créer une salle sans code, car le code n'est pas auto-généré
+			return new ResponseEntity<>(HttpStatus.BAD_REQUEST); // On ne peut pas créer une salle sans code, car le code n'est pas auto-généré
 		}
 		try {
 			salle = salleDao.update(salle);

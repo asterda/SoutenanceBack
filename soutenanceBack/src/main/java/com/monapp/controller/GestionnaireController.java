@@ -63,22 +63,22 @@ public class GestionnaireController {
 	
 	@PostMapping("/gestionnaires")
 	@JsonView(Views.GestionnaireGlobal.class)
-	public ResponseEntity<Gestionnaire> create(@RequestBody Gestionnaire Gestionnaire) {
-		if (Gestionnaire.getId() != null) {
+	public ResponseEntity<Gestionnaire> create(@RequestBody Gestionnaire gestionnaire) {
+		if (gestionnaire.getId() != null) {
 			return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
 		}
-		gestionnaireDao.save(Gestionnaire);
-		return new ResponseEntity<Gestionnaire>(Gestionnaire, HttpStatus.CREATED);
+		gestionnaireDao.save(gestionnaire);
+		return new ResponseEntity<Gestionnaire>(gestionnaire, HttpStatus.CREATED);
 	}
 	
 	@PutMapping("/gestionnaires")
 	@JsonView(Views.GestionnaireGlobal.class)
-	public ResponseEntity<Gestionnaire> update(@RequestBody Gestionnaire Gestionnaire) {
-		if (Gestionnaire.getId() == null) {
-			return create(Gestionnaire);
+	public ResponseEntity<Gestionnaire> update(@RequestBody Gestionnaire gestionnaire) {
+		if (gestionnaire.getId() == null) {
+			return create(gestionnaire);
 		}
-		Gestionnaire = gestionnaireDao.update(Gestionnaire);
+		gestionnaire = gestionnaireDao.update(gestionnaire);
 
-		return new ResponseEntity<Gestionnaire>(Gestionnaire, HttpStatus.OK);
+		return new ResponseEntity<Gestionnaire>(gestionnaire, HttpStatus.OK);
 	}
 }
