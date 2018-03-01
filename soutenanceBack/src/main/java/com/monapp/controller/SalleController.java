@@ -50,35 +50,41 @@ public class SalleController {
 		Salle tmp = salleDao.findByPrimaryKey(code);
 		if (tmp == null) {
 			return new ResponseEntity<>(HttpStatus.NOT_FOUND);
-		} else {
-			try {
-				salleDao.delete(tmp);								
-			}catch(Exception e) {
-				return new ResponseEntity<>(HttpStatus.FORBIDDEN);
-			}
-			return new ResponseEntity<>(HttpStatus.NO_CONTENT);
-		}	
+		} 
+		try {
+			salleDao.delete(tmp);							
+		}catch(Exception e) {
+			return new ResponseEntity<>(HttpStatus.FORBIDDEN);
+		}
+		return new ResponseEntity<>(HttpStatus.NO_CONTENT);
 	}
 	
 	@PostMapping("/salles")
 	@JsonView(Views.SalleGlobal.class)
-	public ResponseEntity<Salle> create(@RequestBody Salle Salle) {
-		if (Salle.getCode() == null) {
+	public ResponseEntity<Salle> create(@RequestBody Salle salle) {
+		if (salle.getCode() == null) {
 			return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
 		}
-		salleDao.save(Salle);
-		return new ResponseEntity<Salle>(Salle, HttpStatus.CREATED);
+		try {
+			salleDao.save(salle);
+		} catch(Exception e) {
+			return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
+		}
+		return new ResponseEntity<Salle>(salle, HttpStatus.CREATED);
 	}
 	
 	@PutMapping("/salles")
 	@JsonView(Views.SalleGlobal.class)
-	public ResponseEntity<Salle> update(@RequestBody Salle Salle) {
-		if (Salle.getCode() == null) {
-			return create(Salle);
+	public ResponseEntity<Salle> update(@RequestBody Salle salle) {
+		if (salle.getCode() == null) {
+			return create(salle); // On ne peut pas créer une salle sans code, car le code n'est pas auto-généré
 		}
-		Salle = salleDao.update(Salle);
-
-		return new ResponseEntity<Salle>(Salle, HttpStatus.OK);
+		try {
+			salle = salleDao.update(salle);
+		} catch(Exception e) {
+			return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
+		}
+		return new ResponseEntity<Salle>(salle, HttpStatus.OK);
 	}
 
 }

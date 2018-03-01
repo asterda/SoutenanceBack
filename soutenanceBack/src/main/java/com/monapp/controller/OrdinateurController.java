@@ -41,8 +41,8 @@ public class OrdinateurController {
 	@GetMapping("/ordinateurs")
 	@JsonView(Views.OrdinateurGlobal.class)
 	public ResponseEntity<List<Ordinateur>> findAll() {
-		List<Ordinateur> salles = ordinateurDao.findAll();
-		return new ResponseEntity<List<Ordinateur>>(salles, HttpStatus.OK);
+		List<Ordinateur> ordinateurs = ordinateurDao.findAll();
+		return new ResponseEntity<List<Ordinateur>>(ordinateurs, HttpStatus.OK);
 	}
 
 	@DeleteMapping("/ordinateurs/{code}")
@@ -50,14 +50,13 @@ public class OrdinateurController {
 		Ordinateur tmp = ordinateurDao.findByPrimaryKey(code);
 		if (tmp == null) {
 			return new ResponseEntity<>(HttpStatus.NOT_FOUND);
-		} else {
-			try {
-				ordinateurDao.delete(tmp);
-			} catch (Exception e) {
-				return new ResponseEntity<>(HttpStatus.FORBIDDEN);
-			}
-			return new ResponseEntity<>(HttpStatus.NO_CONTENT);
 		}
+		try {
+			ordinateurDao.delete(tmp);
+		} catch (Exception e) {
+			return new ResponseEntity<>(HttpStatus.FORBIDDEN);
+		}
+		return new ResponseEntity<>(HttpStatus.NO_CONTENT);
 	}
 
 	@PostMapping("/ordinateurs")
@@ -67,19 +66,26 @@ public class OrdinateurController {
 		if (Ordinateur.getCode() == null) {
 			return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
 		}
-		ordinateurDao.save(Ordinateur);
+		try {
+			ordinateurDao.save(Ordinateur);
+		} catch(Exception e) {
+			return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
+		}
 		return new ResponseEntity<Ordinateur>(Ordinateur, HttpStatus.CREATED);
 	}
 
 	@PutMapping("/ordinateurs")
 	@JsonView(Views.OrdinateurGlobal.class)
-	public ResponseEntity<Ordinateur> update(@RequestBody Ordinateur Ordinateur) {
-		if (Ordinateur.getCode() == null) {
-			return create(Ordinateur);
+	public ResponseEntity<Ordinateur> update(@RequestBody Ordinateur ordinateur) {
+		if (ordinateur.getCode() == null) {
+			return new ResponseEntity<>(HttpStatus.BAD_REQUEST); // On ne peut pas créer un ordinateur sans code, car le code n'est pas auto-généré
 		}
-		Ordinateur = ordinateurDao.update(Ordinateur);
-
-		return new ResponseEntity<Ordinateur>(Ordinateur, HttpStatus.OK);
+		try {
+			ordinateur = ordinateurDao.update(ordinateur);
+		} catch(Exception e) {
+			return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
+		}
+		return new ResponseEntity<Ordinateur>(ordinateur, HttpStatus.OK);
 	}
 
 }

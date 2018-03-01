@@ -30,7 +30,6 @@ public class VideoprojecteurController {
 	@JsonView(Views.VideoprojecteurGlobal.class)
 	public ResponseEntity<Videoprojecteur> findOne(@PathVariable("code") String code){
 		Videoprojecteur v = videoprojecteurDao.findByPrimaryKey(code);
-		
 		if(v == null) {
 			return new ResponseEntity<Videoprojecteur>(v, HttpStatus.NOT_FOUND);
 		}else {
@@ -50,35 +49,41 @@ public class VideoprojecteurController {
 		Videoprojecteur tmp = videoprojecteurDao.findByPrimaryKey(code);
 		if (tmp == null) {
 			return new ResponseEntity<>(HttpStatus.NOT_FOUND);
-		} else {
-			try {
-				videoprojecteurDao.delete(tmp);								
-			}catch(Exception e) {
-				return new ResponseEntity<>(HttpStatus.FORBIDDEN);
-			}
-			return new ResponseEntity<>(HttpStatus.NO_CONTENT);
-		}	
+		}
+		try {
+			videoprojecteurDao.delete(tmp);								
+		}catch(Exception e) {
+			return new ResponseEntity<>(HttpStatus.FORBIDDEN);
+		}
+		return new ResponseEntity<>(HttpStatus.NO_CONTENT);	
 	}
 	
 	@PostMapping("/videoprojecteurs")
 	@JsonView(Views.VideoprojecteurGlobal.class)
-	public ResponseEntity<Videoprojecteur> create(@RequestBody Videoprojecteur Videoprojecteur) {
-		if (Videoprojecteur.getCode() == null) {
+	public ResponseEntity<Videoprojecteur> create(@RequestBody Videoprojecteur videoprojecteur) {
+		if (videoprojecteur.getCode() == null) {
 			return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
 		}
-		videoprojecteurDao.save(Videoprojecteur);
-		return new ResponseEntity<Videoprojecteur>(Videoprojecteur, HttpStatus.CREATED);
+		try {
+			videoprojecteurDao.save(videoprojecteur);
+		}catch(Exception e) {
+			return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
+		}
+		return new ResponseEntity<Videoprojecteur>(videoprojecteur, HttpStatus.CREATED);
 	}
 	
 	@PutMapping("/videoprojecteurs")
 	@JsonView(Views.VideoprojecteurGlobal.class)
-	public ResponseEntity<Videoprojecteur> update(@RequestBody Videoprojecteur Videoprojecteur) {
-		if (Videoprojecteur.getCode() == null) {
-			return create(Videoprojecteur);
+	public ResponseEntity<Videoprojecteur> update(@RequestBody Videoprojecteur videoprojecteur) {
+		if (videoprojecteur.getCode() == null) {
+			return new ResponseEntity<>(HttpStatus.BAD_REQUEST); // On ne peut pas créer un vidéoprojecteur sans code, car le code n'est pas auto-généré
 		}
-		Videoprojecteur = videoprojecteurDao.update(Videoprojecteur);
-
-		return new ResponseEntity<Videoprojecteur>(Videoprojecteur, HttpStatus.OK);
+		try {
+			videoprojecteur = videoprojecteurDao.update(videoprojecteur);
+		}catch(Exception e) {
+			return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
+		}
+		return new ResponseEntity<Videoprojecteur>(videoprojecteur, HttpStatus.OK);
 	}
 
 }

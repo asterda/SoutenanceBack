@@ -82,6 +82,8 @@ public interface Views {
 		CursusEtVideoprojecteur,
 		CursusEtStages,
 		CursusEtStagiaires,
-		CursusEtOrdinateurs { }
+		CursusEtOrdinateurs,
+		ModuleEtMatieres // Pour avoir les matières avec les modules (à voir si garder/enlever)
+		{ } 
 	
 }
