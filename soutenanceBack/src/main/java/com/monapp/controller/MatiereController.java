@@ -19,6 +19,7 @@ import com.monapp.dao.MatiereDao;
 import com.monapp.model.Matiere;
 import com.monapp.model.MatierePK;
 import com.monapp.model.Niveau;
+import com.monapp.model.Views;
 
 @RestController
 @CrossOrigin
@@ -28,6 +29,7 @@ public class MatiereController {
 	MatiereDao matiereDao;
 
 	@GetMapping("/matieres/{techno}/{niveau}")
+	@JsonView(Views.MatiereGlobal.class)
 	public ResponseEntity<Matiere> findOne(@PathVariable("techno") String techno,
 			@PathVariable("niveau") String niveauStr) {
 		// On crée d'abord la clef primaire composite
@@ -49,6 +51,7 @@ public class MatiereController {
 	}
 
 	@GetMapping("/matieres")
+	@JsonView(Views.MatiereGlobal.class)
 	public ResponseEntity<List<Matiere>> findAll() {
 		List<Matiere> matieres = matiereDao.findAll();
 		return new ResponseEntity<List<Matiere>>(matieres, HttpStatus.OK);
@@ -79,6 +82,7 @@ public class MatiereController {
 	}
 
 	@PostMapping("/matieres")
+	@JsonView(Views.MatiereGlobal.class)
 	public ResponseEntity<Matiere> create(@RequestBody Matiere matiere) {
 		/*
 		 * ATT: ici, l'id n'est pas auto-généré
@@ -95,6 +99,7 @@ public class MatiereController {
 	}
 
 	@PutMapping("/matieres")
+	@JsonView(Views.MatiereGlobal.class)
 	public ResponseEntity<Matiere> update(@RequestBody Matiere matiere) {
 		if (matiere.getId() == null) {
 			return new ResponseEntity<Matiere>(HttpStatus.BAD_REQUEST); // L'id ne peut pas être autogénéré
